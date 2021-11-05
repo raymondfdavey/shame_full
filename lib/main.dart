@@ -165,7 +165,7 @@ class _MainPageState extends State<MainPage> {
                             onTap: () {
                               _launchURL("https://theshame.bandcamp.com/");
                             },
-                            child: Text("BANDCAMP", style: links))
+                            child: Container(margin: EdgeInsets.only(bottom: 15), child: Text("BANDCAMP", style: links)))
                         : InkWell(onTap: () {
                               _launchURL("https://theshame.bandcamp.com/");
                             },
