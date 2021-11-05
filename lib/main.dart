@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +37,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  void _launchURL(url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+
   void handleClick(String letter) {
     if (letter == selectedLetter) {
       setState(() {
@@ -56,7 +60,7 @@ class _MainPageState extends State<MainPage> {
 
   String selectedLetter = '';
   TextStyle mainLetters =
-      TextStyle(color: Colors.blue, fontSize: 90, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.blue, fontSize: 80, fontWeight: FontWeight.bold);
   TextStyle links = TextStyle(
     color: Colors.red,
     fontSize: 30,
@@ -65,6 +69,7 @@ class _MainPageState extends State<MainPage> {
   YoutubePlayerController _controller = YoutubePlayerController(
     initialVideoId: 'mR_IXZJyQPI',
     params: YoutubePlayerParams(
+      // playlist: ['nPt8bK2gbaU', 'gQDByCdjUXw'],
       startAt: Duration(seconds: num),
       showControls: false,
       showFullscreenButton: true,
@@ -72,10 +77,24 @@ class _MainPageState extends State<MainPage> {
     ),
   );
   final player = new AudioCache(fixedPlayer: AudioPlayer());
-  String url = '../assets/audios/noShame.mp3'; //local mp3 file in asset folder
+  List urls = [
+    "../assets/audios/court.mp3",
+    "../assets/audios/groove.mp3",
+    "../assets/audios/moonBadger.mp3",
+    "../assets/audios/superlad.mp3",
+    "../assets/audios/d89.mp3",
+    "../assets/audios/gwai.mp3",
+    "../assets/audios/noShame.mp3",
+    "../assets/audios/tibet.mp3",
+    "../assets/audios/dig.mp3",
+    "../assets/audios/inSound.mp3",
+    "../assets/audios/nostalgic.mp3",
+    '../assets/audios/noShame.mp3'
+  ]; //local mp3 file in asset folder
 
   playLocal() async {
-    await player.play(url);
+    int choice = random(0, 12);
+    await player.play(urls[choice]);
   }
 
   stopAudio() async {
@@ -125,43 +144,7 @@ class _MainPageState extends State<MainPage> {
                                   fit: BoxFit.cover,
                                 ))
                             : Text("S", style: mainLetters))),
-                selectedLetter == "A"
-                    ? isScreenSmall
-                        ? Text("BANDCAMP", style: links)
-                        // : Column(
-                        //     children: <Widget>[
-                        //       Text(
-                        //         "Y",
-                        //         style: links,
-                        //         textAlign: TextAlign.center,
-                        //       ),
-                        //       Text("O",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("U",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("T",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("U",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("B",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("E",
-                        //           style: links, textAlign: TextAlign.center),
-                        //     ],
-                        //   )
-                    : RotatedBox(
-                        quarterTurns: 1,
-                        child: RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            text: 'BANDCAMP',
-                            style: links,
-                          ),
-                        ),
-                      )
-
-                    
-                    : Container(),
+                
                 GestureDetector(
                     onTap: () {
                       handleClick("H");
@@ -176,65 +159,145 @@ class _MainPageState extends State<MainPage> {
                                   image: AssetImage('black.png'),
                                   fit: BoxFit.cover,
                                 ))
-                            : Text("H", style: mainLetters))),
-                selectedLetter == "A"
+                            : Text("H", style: mainLetters))),selectedLetter == "A"
                     ? isScreenSmall
-                        ? Container(
-                            margin: EdgeInsets.only(bottom: 15),
-                            child: Text("WIKIPEDIA", style: links))
-                        : 
-                    // Column(
-                    //         children: <Widget>[
-                    //           Text(
-                    //             "W",
-                    //             style: links,
-                    //             textAlign: TextAlign.center,
-                    //           ),
-                    //           Text("I",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("K",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("I",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("P",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("E",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("D",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("I",
-                    //               style: links, textAlign: TextAlign.center),
-                    //           Text("A",
-                    //               style: links, textAlign: TextAlign.center),
-                    //         ],
-                    //       )
-                    // //     //
-                    RotatedBox(
-                        quarterTurns: 1,
-                        child: RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            text: 'WIKIPEDIA',
-                            style: links,
-                          ),
+                        ? InkWell(
+                            onTap: () {
+                              _launchURL("https://theshame.bandcamp.com/");
+                            },
+                            child: Text("BANDCAMP", style: links))
+                        : InkWell(onTap: () {
+                              _launchURL("https://theshame.bandcamp.com/");
+                            },
+                          child: Column(
+                              children: <Widget>[
+                                Text(
+                                  "Y",
+                                  style: links,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("O",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("U",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("T",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("U",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("B",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("E",
+                                    style: links, textAlign: TextAlign.center),
+                              ],
+                            ),
+                        )
+                        // : InkWell(onTap: () {
+                        //       _launchURL("https://theshame.bandcamp.com/");
+                        //     },
+                        //   child: RotatedBox(
+                        //       quarterTurns: 1,
+                        //       child: RichText(
+                        //         textAlign: TextAlign.start,
+                        //         text: TextSpan(
+                        //           text: 'BANDCAMP',
+                        //           style: links,
+                        //         ),
+                        //       ),
+                        //     ),
+                        // )
+                    : Container(),
+                // selectedLetter == "A"
+                //     ? isScreenSmall
+                //         ? Container(
+                //             margin: EdgeInsets.only(bottom: 15),
+                //             child: InkWell(onTap: () {
+                //               _launchURL("https://en.wikipedia.org/wiki/Shame");
+                //             },child: Text("WIKIPEDIA", style: links)))
+                //         :
+                //         // Column(
+                //         //         children: <Widget>[
+                //         //           Text(
+                //         //             "W",
+                //         //             style: links,
+                //         //             textAlign: TextAlign.center,
+                //         //           ),
+                //         //           Text("I",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("K",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("I",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("P",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("E",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("D",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("I",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //           Text("A",
+                //         //               style: links, textAlign: TextAlign.center),
+                //         //         ],
+                //         //       )
+                //         // //     //
+                //         InkWell(onTap: () {
+                //               _launchURL("https://en.wikipedia.org/wiki/Shame");
+                //             },
+                //           child: RotatedBox(
+                //               quarterTurns: 1,
+                //               child: RichText(
+                //                 textAlign: TextAlign.start,
+                //                 text: TextSpan(
+                //                   text: 'WIKIPEDIA',
+                //                   style: links,
+                //                 ),
+                //               ),
+                //             ),
+                //         )
+                //     : Container(),
+
+
+
+
+                selectedLetter == "E" && (isScreenSmall || isScreenTiny)
+                    ? Container(
+                        height: isScreenSmall
+                            ? 150
+                            : isScreenTiny
+                                ? 100
+                                : 250,
+                        width: isScreenSmall
+                            ? 225
+                            : isScreenTiny
+                                ? 150
+                                : 375,
+                        child: YoutubePlayerIFrame(
+                          controller: _controller,
+                          aspectRatio: 16 / 9,
                         ),
                       )
-                    : Container(),
-                GestureDetector(
-                    onTap: () {
-                      handleClick("A");
-                    },
-                    child: Container(
-                        margin: new EdgeInsets.symmetric(horizontal: 10.0),
-                        child: selectedLetter == "A"
-                            ? Container(
-                                height: 100,
-                                width: 100,
-                                child: Image(
-                                  image: AssetImage('blue.png'),
-                                  fit: BoxFit.cover,
-                                ))
-                            : Text("A", style: mainLetters))),
+                    : selectedLetter == "S" ? InkWell(onTap: () {
+                              _launchURL("https://en.wikipedia.org/wiki/Shame");
+                            },
+                      child: Container(height:200, width: 150, child: Image(
+                                        image: AssetImage('mask2fix.png'),
+                                        // fit: BoxFit.fitWidth,
+                                      )),
+                    ) : GestureDetector(
+                        onTap: () {
+                          handleClick("A");
+                        },
+                        child: Container(
+                            margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                            child: selectedLetter == "A"
+                                ? Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: Image(
+                                      image: AssetImage('blue.png'),
+                                      fit: BoxFit.cover,
+                                    ))
+                                : Text("A", style: mainLetters))),
                 GestureDetector(
                     onTap: () {
                       handleClick("M");
@@ -252,43 +315,52 @@ class _MainPageState extends State<MainPage> {
                             : Text("M", style: mainLetters))),
                 selectedLetter == "A"
                     ? isScreenSmall
-                        ? Text("YOUTUBE", style: links)
-                        // : 
-                        // Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: <Widget>[
-                        //       Text(
-                        //         "B",
-                        //         style: links,
+                        ? InkWell(onTap: () {
+                              _launchURL("https://theshame.bandcamp.com/");
+                            },child: Text("YOUTUBE", style: links))
+                        :
+                        InkWell(onTap: () {
+                              _launchURL("https://theshame.bandcamp.com/");
+                            },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "B",
+                                  style: links,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("A",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("N",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("D",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("C",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("A",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("M",
+                                    style: links, textAlign: TextAlign.center),
+                                Text("P",
+                                    style: links, textAlign: TextAlign.center),
+                              ],
+                            ),
+                        )
+                        // : InkWell(onTap: () {
+                        //       _launchURL("https://theshame.bandcamp.com/");
+                        //     },
+                        //   child: RotatedBox(
+                        //       quarterTurns: 1,
+                        //       child: RichText(
                         //         textAlign: TextAlign.center,
+                        //         text: TextSpan(
+                        //           text: 'YOUTUBE',
+                        //           style: links,
+                        //         ),
                         //       ),
-                        //       Text("A",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("N",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("D",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("C",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("A",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("M",
-                        //           style: links, textAlign: TextAlign.center),
-                        //       Text("P",
-                        //           style: links, textAlign: TextAlign.center),
-                        //     ],
-                        //   )
-                    : RotatedBox(
-                        quarterTurns: 1,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: 'YOUTUBE',
-                            style: links,
-                          ),
-                        ),
-                      )
-                    
+                        //     ),
+                        // )
                     : Container(),
                 GestureDetector(
                     onTap: () {
@@ -307,10 +379,18 @@ class _MainPageState extends State<MainPage> {
                             : Text("E", style: mainLetters))),
               ],
             ),
-            selectedLetter == "E"
+            selectedLetter == "E" && !isScreenSmall && !isScreenTiny
                 ? Container(
-                    height: isScreenSmall ? 150 : isScreenTiny? 100 : 250,
-                    width: isScreenSmall ? 225 : isScreenTiny?150 : 375,
+                    height: isScreenSmall
+                        ? 150
+                        : isScreenTiny
+                            ? 100
+                            : 250,
+                    width: isScreenSmall
+                        ? 225
+                        : isScreenTiny
+                            ? 150
+                            : 375,
                     child: YoutubePlayerIFrame(
                       controller: _controller,
                       aspectRatio: 16 / 9,

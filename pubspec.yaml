@@ -31,6 +31,7 @@ dependencies:
   assets_audio_player_web: ^3.0.3+6
   assets_audio_player: ^3.0.3+3
   audioplayers: ^0.20.1
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:
@@ -53,8 +54,21 @@ flutter:
     - assets/blue.png
     - assets/green.png
     - assets/red.png
+    - assets/mask.jpg
+    - assets/mask2fix.png
     - assets/audios/noShame.mp3
-    - assets/audios/noShame.wav
+    - assets/audios/court.mp3
+    - assets/audios/groove.mp3
+    - assets/audios/moonBadger.mp3
+    - assets/audios/superlad.mp3
+    - assets/audios/d89.mp3
+    - assets/audios/gwai.mp3
+    - assets/audios/noShame.mp3
+    - assets/audios/tibet.mp3
+    - assets/audios/dig.mp3
+    - assets/audios/inSound.mp3
+    - assets/audios/nostalgic.mp3
+    - assets/audios/noShame.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
