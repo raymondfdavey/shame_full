@@ -172,21 +172,23 @@ class _MainPageState extends State<MainPage> {
                           child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Y",
+                                  "B",
                                   style: links,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("O",
+                                Text("A",
                                     style: links, textAlign: TextAlign.center),
-                                Text("U",
+                                Text("N",
                                     style: links, textAlign: TextAlign.center),
-                                Text("T",
+                                Text("D",
                                     style: links, textAlign: TextAlign.center),
-                                Text("U",
+                                Text("C",
                                     style: links, textAlign: TextAlign.center),
-                                Text("B",
+                                Text("A",
                                     style: links, textAlign: TextAlign.center),
-                                Text("E",
+                                Text("M",
+                                    style: links, textAlign: TextAlign.center),
+                                    Text("P",
                                     style: links, textAlign: TextAlign.center),
                               ],
                             ),
@@ -316,33 +318,31 @@ class _MainPageState extends State<MainPage> {
                 selectedLetter == "A"
                     ? isScreenSmall
                         ? InkWell(onTap: () {
-                              _launchURL("https://theshame.bandcamp.com/");
+                              _launchURL("https://www.youtube.com/watch?v=9C168yXrkro");
                             },child: Text("YOUTUBE", style: links))
                         :
                         InkWell(onTap: () {
-                              _launchURL("https://theshame.bandcamp.com/");
+                              _launchURL("https://www.youtube.com/watch?v=9C168yXrkro");
                             },
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  "B",
+                                  "Y",
                                   style: links,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("A",
+                                Text("O",
                                     style: links, textAlign: TextAlign.center),
-                                Text("N",
+                                Text("U",
                                     style: links, textAlign: TextAlign.center),
-                                Text("D",
+                                Text("T",
                                     style: links, textAlign: TextAlign.center),
-                                Text("C",
+                                Text("U",
                                     style: links, textAlign: TextAlign.center),
-                                Text("A",
+                                Text("B",
                                     style: links, textAlign: TextAlign.center),
-                                Text("M",
-                                    style: links, textAlign: TextAlign.center),
-                                Text("P",
+                                Text("E",
                                     style: links, textAlign: TextAlign.center),
                               ],
                             ),
